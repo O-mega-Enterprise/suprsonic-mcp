@@ -1,0 +1,19 @@
+# Smithery configuration file: https://smithery.ai/docs/build/deployments
+# Suprsonic MCP server: one API key, dozens of capabilities for AI agents.
+
+build:
+  dockerBuildPath: .
+
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - suprsonicApiKey
+    properties:
+      suprsonicApiKey:
+        type: string
+        description: Your Suprsonic API key. Get one free at suprsonic.ai/app/apis
+  commandFunction:
+    |-
+    (config) => ({ command: 'npx', args: ['-y', 'suprsonic-mcp'], env: { SUPRSONIC_API_KEY: config.suprsonicApiKey } })

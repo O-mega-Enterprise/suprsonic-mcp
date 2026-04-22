@@ -1,6 +1,6 @@
 # @suprsonic/mcp
 
-MCP server for [Suprsonic](https://suprsonic.ai). Gives any AI agent 17+ capabilities through one connection.
+MCP server for [Suprsonic](https://suprsonic.ai). Gives any AI agent dozens of capabilities through one connection.
 
 ## Quick Start
 

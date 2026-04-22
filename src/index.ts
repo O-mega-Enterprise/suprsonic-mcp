@@ -3,7 +3,7 @@
  * Suprsonic MCP Server
  *
  * Gives any MCP-compatible AI agent (Claude Desktop, Cursor, VS Code, ChatGPT, etc.)
- * access to 17+ capabilities through the Suprsonic unified agent API.
+ * access to dozens of capabilities through the Suprsonic unified agent API.
  *
  * Usage (local stdio, for Claude Desktop / Cursor):
  *   SUPRSONIC_API_KEY=omk_... npx @suprsonic/mcp

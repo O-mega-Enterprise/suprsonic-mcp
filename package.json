@@ -1,7 +1,7 @@
 {
   "name": "suprsonic-mcp",
   "version": "0.3.0",
-  "description": "Suprsonic MCP server. Gives any AI agent 17+ capabilities through one connection.",
+  "description": "Suprsonic MCP server. Gives any AI agent dozens of capabilities through one connection.",
   "license": "MIT",
   "type": "module",
   "bin": {

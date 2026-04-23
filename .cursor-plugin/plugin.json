@@ -1,0 +1,15 @@
+{
+  "name": "suprsonic-mcp",
+  "description": "Unified agent API. Search, scrape, enrich profiles, find emails, generate images, TTS, STT, and more. One API key, zero provider signups.",
+  "version": "0.3.1",
+  "author": {
+    "name": "O-mega Enterprise",
+    "email": "yuma@o-mega.ai"
+  },
+  "homepage": "https://suprsonic.ai",
+  "repository": "https://github.com/O-mega-Enterprise/suprsonic-mcp",
+  "license": "MIT",
+  "keywords": ["mcp", "ai-agent", "unified-api", "search", "scrape", "enrichment", "tts", "stt", "tools"],
+  "logo": "https://suprsonic.ai/images/o-mega_icon_2.0_blue.png",
+  "mcpServers": "mcp.json"
+}

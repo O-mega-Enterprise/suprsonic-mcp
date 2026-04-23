@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "suprsonic": {
+      "command": "npx",
+      "args": ["-y", "suprsonic-mcp"],
+      "env": {
+        "SUPRSONIC_API_KEY": "{{SUPRSONIC_API_KEY}}"
+      }
+    }
+  }
+}

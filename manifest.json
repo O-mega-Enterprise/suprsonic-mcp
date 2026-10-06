@@ -1,0 +1,173 @@
+{
+  "manifest_version": "0.3",
+  "name": "suprsonic-mcp",
+  "version": "0.3.1",
+  "display_name": "Suprsonic",
+  "description": "Gives any AI agent dozens of capabilities through one connection. Search, scrape, enrich profiles, find emails, generate images, TTS, STT, messaging, and more.",
+  "long_description": "Suprsonic is a unified agent API. One API key gives your AI agent dozens of capabilities, among them web search, scraping, screenshots, profile and company enrichment, email finding and verification, image and sound generation, text-to-speech, transcription, messaging, document and invoice extraction, file conversion, code execution and deep research. Zero provider signups, zero OAuth.",
+  "author": {
+    "name": "O-mega Enterprise",
+    "email": "yuma@o-mega.ai",
+    "url": "https://suprsonic.ai"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "suprsonic-mcp"
+      ],
+      "env": {
+        "SUPRSONIC_API_KEY": "${user_config.SUPRSONIC_API_KEY}"
+      }
+    }
+  },
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/O-mega-Enterprise/suprsonic-mcp"
+  },
+  "homepage": "https://suprsonic.ai",
+  "documentation": "https://suprsonic.ai/docs/api",
+  "support": "https://github.com/O-mega-Enterprise/suprsonic-mcp/issues",
+  "tools": [
+    {
+      "name": "search",
+      "description": "Search the web with SERP, AI synthesis, or both."
+    },
+    {
+      "name": "scrape",
+      "description": "Extract content from any URL as Markdown or HTML."
+    },
+    {
+      "name": "profiles",
+      "description": "Find and enrich professional profiles."
+    },
+    {
+      "name": "emails",
+      "description": "Find professional email addresses."
+    },
+    {
+      "name": "images",
+      "description": "Generate images from text prompts."
+    },
+    {
+      "name": "tts",
+      "description": "Convert text to speech audio."
+    },
+    {
+      "name": "stt",
+      "description": "Transcribe audio to text with timestamps."
+    },
+    {
+      "name": "sound-generate",
+      "description": "Generate sound effects and short music tracks from text prompts (NOT speech: use tts for spoken voice)."
+    },
+    {
+      "name": "sms",
+      "description": "Send SMS or WhatsApp messages. Default channel is SMS (reliable delivery). WhatsApp requires recipient opt-in: they must have messaged your Business number within 24 hours."
+    },
+    {
+      "name": "documents",
+      "description": "Extract structured data from URLs or content."
+    },
+    {
+      "name": "companies",
+      "description": "Enrich company data by domain."
+    },
+    {
+      "name": "email-verify",
+      "description": "Check if an email is deliverable, catch-all, or disposable."
+    },
+    {
+      "name": "transcribe",
+      "description": "Transcribe audio with speaker diarization and timestamps."
+    },
+    {
+      "name": "invoice-parse",
+      "description": "Extract structured data from invoices and receipts."
+    },
+    {
+      "name": "subtitle",
+      "description": "Generate SRT/VTT subtitles from audio or video."
+    },
+    {
+      "name": "file-convert",
+      "description": "Convert documents, web pages, spreadsheets and images between formats."
+    },
+    {
+      "name": "bg-remove",
+      "description": "Remove background from any image. Returns transparent PNG."
+    },
+    {
+      "name": "screenshot",
+      "description": "Capture a rendered screenshot of any webpage."
+    },
+    {
+      "name": "code-execute",
+      "description": "Execute code in a secure sandbox with pre-configured environments."
+    },
+    {
+      "name": "site-intel",
+      "description": "Get comprehensive domain intelligence: WHOIS, DNS, SSL, tech stack, email security, hosting."
+    },
+    {
+      "name": "research",
+      "description": "Multi-step deep research: search, scrape, enrich entities, and synthesize into a cited report."
+    },
+    {
+      "name": "video-info",
+      "description": "Extract video metadata, available formats, and thumbnail from any URL."
+    },
+    {
+      "name": "video-download",
+      "description": "Download video from any URL and return a temporary download link."
+    },
+    {
+      "name": "domains",
+      "description": "Find domain names and the extensions that fit a business."
+    }
+  ],
+  "user_config": {
+    "SUPRSONIC_API_KEY": {
+      "type": "string",
+      "title": "Suprsonic API Key",
+      "description": "Your Suprsonic API key. Get one at https://suprsonic.ai/app/api",
+      "required": true,
+      "sensitive": true
+    }
+  },
+  "keywords": [
+    "mcp",
+    "suprsonic",
+    "ai-agent",
+    "unified-api",
+    "search",
+    "scrape",
+    "web-scraping",
+    "enrichment",
+    "tts",
+    "stt",
+    "tools",
+    "email",
+    "image-generation",
+    "transcription",
+    "file-conversion"
+  ],
+  "license": "MIT",
+  "privacy_policies": [
+    "https://suprsonic.ai/privacy"
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=20"
+    }
+  }
+}

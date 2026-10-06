@@ -17,7 +17,7 @@
       },
       "environmentVariables": [
         {
-          "description": "Your Suprsonic API key (get one at suprsonic.ai/app/apis)",
+          "description": "Your Suprsonic API key (get one at suprsonic.ai/app/api)",
           "isRequired": true,
           "format": "string",
           "isSecret": true,

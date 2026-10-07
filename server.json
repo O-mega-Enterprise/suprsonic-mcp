@@ -1,17 +1,50 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.O-mega-Enterprise/suprsonic-mcp",
+  "title": "Suprsonic",
   "description": "One API key, dozens of capabilities for your AI agent. Zero provider auth.",
+  "websiteUrl": "https://suprsonic.ai",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/O-mega-Enterprise/suprsonic-mcp/main/icon.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "1024x1024"
+      ]
+    }
+  ],
   "repository": {
     "url": "https://github.com/O-mega-Enterprise/suprsonic-mcp",
     "source": "github"
   },
-  "version": "0.3.2",
+  "version": "0.3.3",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://suprsonic.ai/v1/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Your Suprsonic API key as a bearer token (get one at suprsonic.ai/app/api)",
+          "isRequired": true,
+          "isSecret": true,
+          "value": "Bearer {suprsonic_api_key}",
+          "variables": {
+            "suprsonic_api_key": {
+              "description": "Your Suprsonic API key (omk_...)",
+              "isRequired": true,
+              "isSecret": true
+            }
+          }
+        }
+      ]
+    }
+  ],
   "packages": [
     {
       "registryType": "npm",
       "identifier": "suprsonic-mcp",
-      "version": "0.3.2",
+      "version": "0.3.3",
       "transport": {
         "type": "stdio"
       },

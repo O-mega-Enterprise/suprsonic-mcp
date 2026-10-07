@@ -4,15 +4,99 @@ MCP server for [Suprsonic](https://suprsonic.ai). Gives any AI agent dozens of c
 
 ## Quick Start
 
+Connect to the hosted server, nothing to install:
+
+- URL: `https://suprsonic.ai/v1/mcp` (Streamable HTTP)
+- Header: `Authorization: Bearer omk_your_key` (or `x-api-key: omk_your_key`, for a client or gateway that keeps `Authorization` for its own sign-in)
+
+Or run the server on your own machine:
+
 ```bash
 SUPRSONIC_API_KEY=omk_your_key npx -y suprsonic-mcp
 ```
 
-Get your API key at [suprsonic.ai/app/api](https://suprsonic.ai/app/api).
+Get your API key at [suprsonic.ai/app/api](https://suprsonic.ai/app/api). Both offer the same tools at the same prices. Listing the tools needs no key; a call without a valid key answers with the API's own error, which says where to get one.
 
 The package is `suprsonic-mcp`. Earlier copies of this README named `@suprsonic/mcp`: that npm scope belongs to an unrelated company, so never install it.
 
-## Claude Desktop
+## Hosted server
+
+### Claude Code
+
+```bash
+claude mcp add --transport http suprsonic https://suprsonic.ai/v1/mcp --header "Authorization: Bearer omk_your_key"
+```
+
+### Cursor
+
+Add to `~/.cursor/mcp.json` (or `.cursor/mcp.json` in a project):
+
+```json
+{
+  "mcpServers": {
+    "suprsonic": {
+      "url": "https://suprsonic.ai/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer omk_your_key"
+      }
+    }
+  }
+}
+```
+
+### VS Code
+
+Add to `.vscode/mcp.json` (VS Code asks for the key once and stores it as a secret):
+
+```json
+{
+  "inputs": [
+    { "type": "promptString", "id": "suprsonic-key", "description": "Suprsonic API key (omk_...)", "password": true }
+  ],
+  "servers": {
+    "suprsonic": {
+      "type": "http",
+      "url": "https://suprsonic.ai/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer ${input:suprsonic-key}"
+      }
+    }
+  }
+}
+```
+
+### Claude API (MCP connector)
+
+Send the beta header `anthropic-beta: mcp-client-2025-11-20` and add to your Messages request:
+
+```json
+{
+  "mcp_servers": [
+    { "type": "url", "url": "https://suprsonic.ai/v1/mcp", "name": "suprsonic", "authorization_token": "omk_your_key" }
+  ],
+  "tools": [
+    { "type": "mcp_toolset", "mcp_server_name": "suprsonic" }
+  ]
+}
+```
+
+### OpenAI Responses API
+
+Add to the request's `tools`:
+
+```json
+{
+  "type": "mcp",
+  "server_label": "suprsonic",
+  "server_url": "https://suprsonic.ai/v1/mcp",
+  "authorization": "omk_your_key",
+  "require_approval": "never"
+}
+```
+
+## Local server (npx)
+
+### Claude Desktop
 
 Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
@@ -30,23 +114,11 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 }
 ```
 
-## Cursor / VS Code
+The same entry works in Cursor's `mcp.json`.
 
-Add to `.cursor/mcp.json` or VS Code MCP config:
+### Your own HTTP endpoint
 
-```json
-{
-  "suprsonic": {
-    "command": "npx",
-    "args": ["-y", "suprsonic-mcp"],
-    "env": {
-      "SUPRSONIC_API_KEY": "omk_your_key"
-    }
-  }
-}
-```
-
-## Remote HTTP (for Claude API, ChatGPT, programmatic agents)
+To serve the HTTP transport from your own machine instead of using the hosted server:
 
 ```bash
 SUPRSONIC_API_KEY=omk_your_key npx -y suprsonic-mcp --http --port 3100

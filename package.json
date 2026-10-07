@@ -1,6 +1,6 @@
 {
   "name": "suprsonic-mcp",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "mcpName": "io.github.O-mega-Enterprise/suprsonic-mcp",
   "description": "Suprsonic MCP server. Gives any AI agent dozens of capabilities through one connection.",
   "license": "MIT",

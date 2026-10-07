@@ -1,7 +1,7 @@
 {
   "manifest_version": "0.3",
   "name": "suprsonic-mcp",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "display_name": "Suprsonic",
   "description": "Gives any AI agent dozens of capabilities through one connection. Search, scrape, enrich profiles, find emails, generate images, TTS, STT, messaging, and more.",
   "long_description": "Suprsonic is a unified agent API. One API key gives your AI agent dozens of capabilities, among them web search, scraping, screenshots, profile and company enrichment, email finding and verification, image and sound generation, text-to-speech, transcription, messaging, document and invoice extraction, file conversion, code execution and deep research. Zero provider signups, zero OAuth.",

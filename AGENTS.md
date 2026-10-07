@@ -41,18 +41,28 @@ Inputs listed as optional can be left out: the API applies its own default. A ca
 
 ## Authentication
 
-Requires environment variable: `SUPRSONIC_API_KEY`
-Get a free key at: https://suprsonic.ai/app/api
+One Suprsonic API key (`omk_...`). Get a free key at: https://suprsonic.ai/app/api
+- Hosted server: send it as the header `Authorization: Bearer omk_...` (or `x-api-key: omk_...`)
+- Local server: set the environment variable `SUPRSONIC_API_KEY`
 
-## Installation
+## Connecting
 
-```bash
-npx -y suprsonic-mcp
+Hosted (Streamable HTTP, nothing to install): `https://suprsonic.ai/v1/mcp`
+
+```json
+{
+  "mcpServers": {
+    "suprsonic": {
+      "url": "https://suprsonic.ai/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer omk_your_key"
+      }
+    }
+  }
+}
 ```
 
-The package is `suprsonic-mcp`. Do not install `@suprsonic/mcp`: that npm scope belongs to an unrelated company.
-
-## Configuration
+Local (stdio):
 
 ```json
 {
@@ -67,6 +77,10 @@ The package is `suprsonic-mcp`. Do not install `@suprsonic/mcp`: that npm scope 
   }
 }
 ```
+
+The package is `suprsonic-mcp`. Do not install `@suprsonic/mcp`: that npm scope belongs to an unrelated company.
+
+Both servers offer the same tools at the same prices. Listing them needs no key; a call without a valid key answers with the API's own error, which says where to get one.
 
 ## Response Format
 

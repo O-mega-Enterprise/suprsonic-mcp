@@ -102,13 +102,16 @@ function createServer(): McpServer {
     { capabilities: { logging: {} } },
   );
 
-  // Register each capability as an MCP tool (from generated definitions)
+  // Register each capability as an MCP tool (from generated definitions). The annotations tell clients what a call
+  // does (Claude runs a read-only tool without asking; sms and code-execute are not read-only).
   for (const cap of CAPABILITIES) {
     server.registerTool(
       cap.name,
       {
+        title: cap.title,
         description: cap.description,
         inputSchema: cap.inputSchema as any,
+        annotations: cap.annotations,
       },
       async (args: any): Promise<CallToolResult> => {
         return callSuprsonic(cap.name, args as Record<string, unknown>);

@@ -94,6 +94,10 @@ Add to the request's `tools`:
 }
 ```
 
+### Smithery
+
+Suprsonic is listed on Smithery as [suprsonic](https://smithery.ai/servers/suprsonic). Add it to your Smithery toolbox and paste your key when Smithery asks for it; Smithery passes it to the hosted server as `x-api-key`.
+
 ## Local server (npx)
 
 ### Claude Desktop
@@ -194,10 +198,10 @@ Every error is the same object. A capability that fails returns it as `error` in
     "type": "https://api.o-mega.ai/errors/insufficient-credits",
     "title": "Insufficient Suprsonic API credits",
     "status": 402,
-    "detail": "This call requires 2 Suprsonic API credits but you have 0. This is your Suprsonic subscription balance, not a provider balance.",
+    "detail": "This call needs 2 credits and your Suprsonic account has 0 left of its 200 free credits a month, which refill on November 12. This is your Suprsonic credit balance, not a provider's.",
     "is_retriable": false,
     "error_category": "billing",
-    "alternative_action": "Upgrade your plan or enable credit overage at https://suprsonic.ai/app/subscription"
+    "alternative_action": "Pro gives 2,000 credits a month, 10 times the free plan: choose it at https://suprsonic.ai/app/subscription, or wait until November 12."
   }
 }
 ```

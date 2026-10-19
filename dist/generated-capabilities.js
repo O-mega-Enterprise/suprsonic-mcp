@@ -4,7 +4,9 @@ import * as z from "zod";
 export const CAPABILITIES = [
     {
         name: "search",
-        description: "Search the web with SERP, AI synthesis, or both. Cost: serp 1 credit, ai 2 credits, deep 3 credits.",
+        title: "Web Search",
+        description: "Search the web with SERP, AI synthesis, or both. Returns, by mode: serp the organic results (title, url, snippet, position) with any knowledge graph and featured snippet; ai a written answer with the URLs it cites; deep both. Use for current facts, news and finding pages. To read one page in full use scrape; for a report built from many sources use research. Cost: serp 1 credit, ai 2 credits, deep 3 credits, charged only when a call succeeds.",
+        annotations: { "title": "Web Search", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             query: z.string().describe("The search query."),
             num_results: z.number().optional().default(10).describe("Maximum number of organic results (serp and deep modes)."),
@@ -15,7 +17,9 @@ export const CAPABILITIES = [
     },
     {
         name: "scrape",
-        description: "Extract content from any URL as Markdown or HTML. Cost: fast 1 credit, standard 2 credits, thorough 5 credits.",
+        title: "Scrape",
+        description: "Extract content from any URL as Markdown or HTML. Returns the page's content in the chosen format (Markdown by default) with its title, description and links. Use when you have a URL and need what the page says. Start with fast; use standard for pages that need JavaScript and thorough only for sites that block scrapers. To pull specific fields into JSON use documents; to see the page as an image use screenshot. Cost: fast 1 credit, standard 2 credits, thorough 5 credits, charged only when a call succeeds.",
+        annotations: { "title": "Scrape", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             url: z.string().describe("URL to scrape."),
             output: z.enum(["markdown", "html", "raw_html"]).optional().default("markdown").describe("Content format."),
@@ -26,7 +30,9 @@ export const CAPABILITIES = [
     },
     {
         name: "profiles",
-        description: "Find and enrich professional profiles. Cost: 3 credits.",
+        title: "Profile Finder",
+        description: "Find and enrich professional profiles. Returns the person's name, headline, current company and title, location, summary, experience, education, skills, photo URL and LinkedIn URL. Use to learn who a professional is and what they have done. For their work email use emails; for a company rather than a person use companies. Pass linkedin_url, or first_name and last_name; company helps find the right person. Cost: 3 credits, charged only when a call succeeds.",
+        annotations: { "title": "Profile Finder", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             linkedin_url: z.string().optional().describe("LinkedIn profile URL."),
             first_name: z.string().optional().describe("First name."),
@@ -37,7 +43,9 @@ export const CAPABILITIES = [
     },
     {
         name: "emails",
-        description: "Find professional email addresses. Cost: 2 credits.",
+        title: "Email Finder",
+        description: "Find professional email addresses. Returns the address with its confidence (0 to 1) and verification status. Use to find a named person's work email at a company. To check an address you already have use email-verify; for the person's background use profiles. Cost: 2 credits, charged only when a call succeeds.",
+        annotations: { "title": "Email Finder", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             first_name: z.string().describe("First name."),
             last_name: z.string().describe("Last name."),
@@ -47,7 +55,9 @@ export const CAPABILITIES = [
     },
     {
         name: "images",
-        description: "Generate images from text prompts. Cost: 3 credits.",
+        title: "Image Generation",
+        description: "Generate images from text prompts. Returns a hosted URL of the PNG and the same image as base64 (b64_json), with the aspect ratio and size used. Use to create a new picture from a description. To cut the background out of an existing image use bg-remove; to capture a web page use screenshot. Cost: 3 credits, charged only when a call succeeds.",
+        annotations: { "title": "Image Generation", "readOnlyHint": true, "openWorldHint": false },
         inputSchema: {
             prompt: z.string().describe("Image description."),
             aspect_ratio: z.enum(["1:1", "16:9", "9:16"]).optional().default("1:1").describe("Aspect ratio."),
@@ -55,7 +65,9 @@ export const CAPABILITIES = [
     },
     {
         name: "tts",
-        description: "Convert text to speech audio. Cost: 2 credits.",
+        title: "Text-to-Speech",
+        description: "Convert text to speech audio. Returns the speech as base64 MP3 audio with its sample rate and the voice used. Use for spoken voice or narration, up to 2,000 characters a call. For sound effects or music use sound-generate. Cost: 2 credits, charged only when a call succeeds.",
+        annotations: { "title": "Text-to-Speech", "readOnlyHint": true, "openWorldHint": false },
         inputSchema: {
             text: z.string().describe("Text to convert (max 2000 chars)."),
             voice_model: z.string().optional().describe("Deepgram voice model ID."),
@@ -64,7 +76,9 @@ export const CAPABILITIES = [
     },
     {
         name: "stt",
-        description: "Transcribe audio to text with timestamps. Cost: 2 credits.",
+        title: "Speech-to-Text",
+        description: "Transcribe audio to text with timestamps. Returns the transcript, its confidence, language and duration, and every word with its start and end time. Use for a short clip whose exact words and timings you need. For a long recording with several speakers use transcribe; for caption files use subtitle. Pass audio_url, or the audio itself as audio_base64. Cost: 2 credits, charged only when a call succeeds.",
+        annotations: { "title": "Speech-to-Text", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             audio_url: z.string().optional().describe("URL to audio file."),
             audio_base64: z.string().optional().describe("Base64-encoded audio."),
@@ -73,7 +87,9 @@ export const CAPABILITIES = [
     },
     {
         name: "sound-generate",
-        description: "Generate sound effects and short music tracks from text prompts (NOT speech: use tts for spoken voice). Cost: 4 credits.",
+        title: "Sound Generation",
+        description: "Generate sound effects and short music tracks from text prompts (NOT speech: use tts for spoken voice). Returns the audio as base64 with its format, sample rate and duration. Use for sound effects, ambience and short instrumental music. It produces no spoken words: for speech use tts. Cost: 4 credits, charged only when a call succeeds.",
+        annotations: { "title": "Sound Generation", "readOnlyHint": true, "openWorldHint": false },
         inputSchema: {
             prompt: z.string().describe("Description of the sound effect or music to generate. NOT for speech (use tts for spoken voice)."),
             duration_seconds: z.number().optional().describe("Length of generated audio in seconds (0.5 to 22). Leave unset to let the model auto-decide based on the prompt."),
@@ -83,7 +99,9 @@ export const CAPABILITIES = [
     },
     {
         name: "sms",
-        description: "Send SMS or WhatsApp messages. Default channel is SMS (reliable delivery). WhatsApp requires recipient opt-in: they must have messaged your Business number within 24 hours. Cost: 1 credit.",
+        title: "SMS",
+        description: "Send SMS or WhatsApp messages. Default channel is SMS (reliable delivery). WhatsApp requires recipient opt-in: they must have messaged your Business number within 24 hours. Returns the message id, channel, recipient, sender number and send status. Sends a real message to a phone number: a sent message cannot be recalled, and every call sends a new one. Use it to text a number the user gave you. Cost: 1 credit, charged only when a call succeeds.",
+        annotations: { "title": "SMS", "readOnlyHint": false, "destructiveHint": false, "idempotentHint": false, "openWorldHint": true },
         inputSchema: {
             to: z.string().describe("Phone number (E.164)."),
             message: z.string().describe("Message text."),
@@ -92,7 +110,9 @@ export const CAPABILITIES = [
     },
     {
         name: "documents",
-        description: "Extract structured data from URLs or content. Cost: 3 credits.",
+        title: "Document Extraction",
+        description: "Extract structured data from URLs or content. Returns the extracted data as JSON (shaped by your schema when you pass one), with the source URL and whether long content was truncated. Use to turn a page or a text into structured fields. For a page's full text use scrape; for invoices and receipts use invoice-parse. Pass url or content; extraction_prompt says what to extract, and schema fixes the shape of the JSON you get back. Cost: 3 credits, charged only when a call succeeds.",
+        annotations: { "title": "Document Extraction", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             url: z.string().optional().describe("URL to scrape and extract from."),
             content: z.string().optional().describe("Pre-scraped text content."),
@@ -102,7 +122,9 @@ export const CAPABILITIES = [
     },
     {
         name: "companies",
-        description: "Enrich company data by domain. Cost: 3 credits.",
+        title: "Company Enrichment",
+        description: "Enrich company data by domain. Returns the company's name, description, industry, size, founding year, headquarters, employees, revenue, funding, social links, technologies, logo and brand colors. Use for business facts about a company. For technical facts about its domain (WHOIS, DNS, SSL, hosting) use site-intel; for a person use profiles. Cost: 3 credits, charged only when a call succeeds.",
+        annotations: { "title": "Company Enrichment", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             domain: z.string().describe("Company domain."),
             company_name: z.string().optional().describe("Optional name hint."),
@@ -110,14 +132,18 @@ export const CAPABILITIES = [
     },
     {
         name: "email-verify",
-        description: "Check if an email is deliverable, catch-all, or disposable. Cost: 1 credit.",
+        title: "Email Verification",
+        description: "Check if an email is deliverable, catch-all, or disposable. Returns the status (such as valid, invalid or catch-all) with a sub-status, whether it is a free mailbox, a suggested correction, the domain's age and its mail servers. Use before emailing an address you were given or found. To find an address from a person's name use emails. Cost: 1 credit, charged only when a call succeeds.",
+        annotations: { "title": "Email Verification", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             email: z.string().describe("Email to verify."),
         },
     },
     {
         name: "transcribe",
-        description: "Transcribe audio with speaker diarization and timestamps. Cost: 3 credits.",
+        title: "Transcription",
+        description: "Transcribe audio with speaker diarization and timestamps. Returns the full transcript with its confidence, language, duration, word and speaker counts, and the utterances, each with its speaker and start and end time. Use for meetings, interviews and podcasts, where who spoke when matters. For a short clip's word timings use stt; for caption files use subtitle. Cost: 3 credits, charged only when a call succeeds.",
+        annotations: { "title": "Transcription", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             audio_url: z.string().describe("URL to audio/video file."),
             language: z.string().optional().default("en").describe("Language code."),
@@ -126,14 +152,18 @@ export const CAPABILITIES = [
     },
     {
         name: "invoice-parse",
-        description: "Extract structured data from invoices and receipts. Cost: 3 credits.",
+        title: "Invoice Parsing",
+        description: "Extract structured data from invoices and receipts. Returns the invoice number, dates, supplier and customer, currency, subtotal, tax, total and every line item. Use for an invoice or receipt given as a PDF or image URL. For any other document use documents with your own schema. Cost: 3 credits, charged only when a call succeeds.",
+        annotations: { "title": "Invoice Parsing", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             document_url: z.string().describe("URL to invoice PDF/image."),
         },
     },
     {
         name: "subtitle",
-        description: "Generate SRT/VTT subtitles from audio or video. Cost: 2 credits.",
+        title: "Subtitles",
+        description: "Generate SRT/VTT subtitles from audio or video. Returns the subtitles as SRT or VTT text with the language, duration and number of cues. Use to caption a video or an audio file. For a plain transcript use stt or transcribe. Cost: 2 credits, charged only when a call succeeds.",
+        annotations: { "title": "Subtitles", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             audio_url: z.string().describe("URL to audio/video."),
             language: z.string().optional().default("en").describe("Language code."),
@@ -142,7 +172,9 @@ export const CAPABILITIES = [
     },
     {
         name: "file-convert",
-        description: "Convert documents, web pages, spreadsheets and images between formats. Cost: 2 credits.",
+        title: "File Conversion",
+        description: "Convert documents, web pages, spreadsheets and images between formats. Returns a download URL of the converted file with its name, size and formats. Use to change a file's format, for example Word to PDF or PDF to Markdown. To extract specific fields use documents; to read a web page's text use scrape. Cost: 2 credits, charged only when a call succeeds.",
+        annotations: { "title": "File Conversion", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             file_url: z.string().describe("URL of the file to convert (for source_format web, the page itself)."),
             source_format: z.string().describe("Format of the file: pdf, docx, pptx, xlsx, csv, html, web (a page, from its HTML without JavaScript), txt, epub, svg, png, jpg, webp, gif, bmp, tiff or heic."),
@@ -151,7 +183,9 @@ export const CAPABILITIES = [
     },
     {
         name: "bg-remove",
-        description: "Remove background from any image. Returns transparent PNG. Cost: 2 credits.",
+        title: "Background Removal",
+        description: "Remove background from any image. Returns transparent PNG. Returns the cut-out as a base64 PNG with a transparent background. Use to isolate the subject of an existing image. To create a new image use images. Cost: 2 credits, charged only when a call succeeds.",
+        annotations: { "title": "Background Removal", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             image_url: z.string().describe("URL to image."),
             size: z.enum(["auto", "small", "hd"]).optional().default("auto").describe("Output resolution."),
@@ -159,7 +193,9 @@ export const CAPABILITIES = [
     },
     {
         name: "screenshot",
-        description: "Capture a rendered screenshot of any webpage. Cost: 1 credit.",
+        title: "Screenshot",
+        description: "Capture a rendered screenshot of any webpage. Returns the image as base64 with its format, dimensions and size in bytes. Use to see how a page looks. To read its text use scrape. Cost: 1 credit, charged only when a call succeeds.",
+        annotations: { "title": "Screenshot", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             url: z.string().describe("URL to capture."),
             width: z.number().optional().default(1280).describe("Viewport width."),
@@ -170,7 +206,9 @@ export const CAPABILITIES = [
     },
     {
         name: "code-execute",
-        description: "Execute code in a secure sandbox with pre-configured environments. Cost: 2 credits.",
+        title: "Code Execution",
+        description: "Execute code in a secure sandbox with pre-configured environments. Returns stdout, stderr, the exit code, the run time, and the files the code wrote to /home/user/output/ as base64. Use for calculations, data processing and running scripts. Each call runs in a fresh sandbox that is destroyed afterwards, so nothing carries over from one call to the next. Cost: 2 credits, charged only when a call succeeds.",
+        annotations: { "title": "Code Execution", "readOnlyHint": false, "destructiveHint": false, "idempotentHint": false, "openWorldHint": true },
         inputSchema: {
             code: z.string().describe("The code to execute."),
             language: z.enum(["python", "javascript", "shell"]).optional().default("python").describe("Programming language."),
@@ -180,7 +218,9 @@ export const CAPABILITIES = [
     },
     {
         name: "site-intel",
-        description: "Get comprehensive domain intelligence: WHOIS, DNS, SSL, tech stack, email security, hosting. Cost: overview 2 credits, whois 1 credit, dns 1 credit, tech-stack 2 credits, security 2 credits, subdomains 2 credits.",
+        title: "Site Intelligence",
+        description: "Get comprehensive domain intelligence: WHOIS, DNS, SSL, tech stack, email security, hosting. Returns, by mode, the registration (WHOIS) data, DNS records with email security, the technology stack, a security grade from A to F, or the subdomains; overview combines registration, DNS, SSL and hosting. Use for technical facts about a domain. For business facts about the company behind it use companies; to find a name you can register use domains. Cost: overview 2 credits, whois 1 credit, dns 1 credit, tech-stack 2 credits, security 2 credits, subdomains 2 credits, charged only when a call succeeds.",
+        annotations: { "title": "Site Intelligence", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             domain: z.string().describe("Domain to analyze (e.g. stripe.com)."),
             mode: z.enum(["overview", "whois", "dns", "tech-stack", "security", "subdomains"]).optional().default("overview").describe("Intelligence depth."),
@@ -188,7 +228,9 @@ export const CAPABILITIES = [
     },
     {
         name: "research",
-        description: "Multi-step deep research: search, scrape, enrich entities, and synthesize into a cited report. Cost: standard 10 credits, deep 20 credits, comprehensive 35 credits.",
+        title: "Deep Research",
+        description: "Multi-step deep research: search, scrape, enrich entities, and synthesize into a cited report. Returns a report (title, summary, sections, key findings, confidence) with numbered sources and the people and companies it found, enriched. Use for a question that needs many sources and a synthesized, cited answer. It takes far longer and costs more than search, which suits a quick fact. Cost: standard 10 credits, deep 20 credits, comprehensive 35 credits, charged only when a call succeeds. Options change it: include_analysis true +5, academic in source_types +2, enrich_entities false -3, synthesis false -5.",
+        annotations: { "title": "Deep Research", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             query: z.string().describe("The research question or objective."),
             depth: z.enum(["standard", "deep", "comprehensive"]).optional().default("standard").describe("Research depth."),
@@ -202,14 +244,18 @@ export const CAPABILITIES = [
     },
     {
         name: "video-info",
-        description: "Extract video metadata, available formats, and thumbnail from any URL. Cost: 1 credit.",
+        title: "Video Info",
+        description: "Extract video metadata, available formats, and thumbnail from any URL. Returns the title, duration, thumbnail, uploader, upload date, view count, platform and the available formats with their sizes. Use to inspect a video before downloading it. To get the file use video-download; for what is said in it use transcribe. Cost: 1 credit, charged only when a call succeeds.",
+        annotations: { "title": "Video Info", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             url: z.string().describe("URL of the video or post containing a video."),
         },
     },
     {
         name: "video-download",
-        description: "Download video from any URL and return a temporary download link. Cost: video 3 credits, audio 2 credits.",
+        title: "Video Download",
+        description: "Download video from any URL and return a temporary download link. Returns a download link that expires after one hour, with the file name, size, duration, quality, format, title and thumbnail. Use to get a video, or only its audio, as a file. For its details without downloading use video-info. Cost: video 3 credits, audio 2 credits, charged only when a call succeeds.",
+        annotations: { "title": "Video Download", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             url: z.string().describe("URL of the video or post containing a video."),
             quality: z.enum(["360", "480", "720", "1080", "best"]).optional().default("720").describe("Desired video quality (best available up to this resolution)."),
@@ -218,7 +264,9 @@ export const CAPABILITIES = [
     },
     {
         name: "domains",
-        description: "Find domain names and the extensions that fit a business. Cost: suggest-names 5 credits, suggest-extensions 3 credits, search-extensions 2 credits, check-availability 1 credit, pricing 1 credit, tlds 1 credit.",
+        title: "Domains",
+        description: "Find domain names and the extensions that fit a business. Returns, by mode, name ideas with prices, extensions that fit with reasons, one name across extensions, availability for a list of domains, prices per extension, or the extension catalog. Use to name a business or check domains before buying one; it never registers or buys a domain. For facts about a domain that is already live use site-intel. mode decides which fields apply: company_name and description for the suggest modes, query for search-extensions, domains for check-availability, tlds for pricing. Cost: suggest-names 5 credits, suggest-extensions 3 credits, search-extensions 2 credits, check-availability 1 credit, pricing 1 credit, tlds 1 credit, charged only when a call succeeds.",
+        annotations: { "title": "Domains", "readOnlyHint": true, "openWorldHint": true },
         inputSchema: {
             mode: z.enum(["suggest-names", "suggest-extensions", "search-extensions", "check-availability", "pricing", "tlds"]).optional().default("suggest-names").describe("Which domain capability to run."),
             company_name: z.string().optional().describe("The business name (suggest-extensions), or for suggest-names a natural-language brief: any ordering or limit it states (for example \"shortest\" or \"renewal under $15\") is read and applied beneath your explicit search_options."),
